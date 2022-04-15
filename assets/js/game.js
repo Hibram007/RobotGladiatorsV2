@@ -1,24 +1,53 @@
+// variables for User Robots
 
-// setting a variable to capture input of prompt to user
-var playerName = window.prompt("What is your name?");
+var playerName = window.prompt("What is your robot's name?");
+var playerHealth = 100;
+var playerAttack = 10;
 
-//function called to check data is correctly stored in var
-// will give an alert with the user input to the prompt
-console.log(playerName);
-console.log("This is a string message");
-// this does math
-console.log(10 + 10);
-// this combines a string and a variable
-console.log("Our robot's name is" + playerName);
-console.log("Hello"  + playerName + "I am AresCom, leader of the the arena");
+//log multiple player values
+console.log(playerName, playerAttack, playerHealth);
 
-// this creates a function named "fight"
+//variables for Enemy Robot
+var enemyName = "Roborto";
+var enemyHealth = 50;
+var enemyAttack = 12;
 
-// we are defining what the function "fight" does when invoked
- 
-function fight () {
-    window.alert("The fight has begun!");
+// declaration of fight function
+
+// Update it to Do Math with operators to actually run fight
+var fight = function() {
+    // alert players of round start
+    window.alert("Welcome to Robot Gladiator");
+
+    // subtract playerAttack from EnemyHealth- use result to update enemyHealth var
+enemyHealth = enemyHealth - playerAttack;
+
+    // log result to console to check it worked
+console.log(
+    playerName + "attacked" + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
+);
+    // subtract enemyAttack from playerHealth- Use result ot update playerhealth var
+playerHealth = playerHealth - enemyAttack;
+    // Log a resulting message console to check it worked
+console.log(
+    enemyName + "attacked" + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
+);
+// code to check if user robot has died
+if (playerHealth <= 0){
+    window.alert(playerName + " has died!");
+}
+else {
+    window.alert(playerName + "still has" + playerHealth + "health left.");
 }
 
-// Calling the function - do the thing its predetermined to do
-//fight();
+//code to Check Enemy's Health
+if (enemyHealth <= 0) {
+    window.alert(enemyName + " has died!");
+}
+else {
+    window.alert(enemyName + " still has" + enemyHealth + " health left."); 
+}
+};
+
+// Calling fight function
+fight();
