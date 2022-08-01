@@ -1,24 +1,41 @@
-// variables for User Robots
+// Pseudo code - my notes to self about needs of the App.
+
+// Game States
+
+// " WIN" - player robot has defeated all enemies
+
+// * Fight all enemey -robots
+// * Defeat each enemy robot
+
+// "LOSE" - Player robot's health is zero or less
+
+// Global variables
 
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
-var playerAttack = 30;
+var playerAttack = 40;
 var playerMoney = 10;
 
-
-//log multiple player values
-console.log(playerName, playerAttack, playerHealth);
-
-//variables for Enemy Robot
-var enemyNames = ["Roborto", "AmyRoid", "SpongoBot"];
-console.log(enemyNames);
+var enemyNames = ["Roborto", "AmyRoid", "RonBotter"];
+ 
 var enemyHealth = 50;
 var enemyAttack = 12;
 
-// declaration of fight function
+// LESSON ON LOOPS AND ARRAYS
+// for loop examples-- for([ starts iterator]; [conditional statment ( if true statement executes, if false it stops))];
+// [Iterator is incremented]) --- sequence is checked again till it fails. ( Hence the "loop")
+// for(var i = 0; i < enemyNames.length; i++) {
+//   //console logs the data at the curret index
+//   console.log(enemyNames[i]);
+//   // console logs the index #
+//   console.log(i);
+//   // console logs a concatenated message where current index data + '---words' + index # + " ---words" is displayed
+//   console.log(enemyNames[i] + " is at " + i + " index");
+// }
 
-// Update it to Do Math with operators to actually run fight
-var fight = function() {
+// declaration of fight function
+// fight function with parameter(place holder) passed to it. 
+var fight = function(enemyName) {
     // alert players of round start
     window.alert("Welcome to Robot Gladiator");
     //prompt asking whether to fight or leave
@@ -70,4 +87,6 @@ if (promptFight === "fight" || promptFight === "FIGHT") {
 }
 
 // Calling fight function
-fight();
+for(var i = 0;i < enemyNames.length; i++) {
+  fight(enemyNames[i]);
+}
