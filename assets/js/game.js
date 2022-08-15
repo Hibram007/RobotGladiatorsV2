@@ -1,23 +1,31 @@
 
-
+// initial prompt to use as robots name ( user input)
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 40;
 var playerMoney = 10;
 
-//this is will show up as a lump of words
+// array that houses # and names of enemy robots
 var enemyNames = ['Roborto', 'AmyRoid', 'RonBotter'];
 
 var enemyHealth = 50;
 var enemyAttack = 12;
 
+// THE DEFINITION
+
+// Entire game function
+// argument being passed into function (all data being passed in from global variables)
 var fight = function(enemyName) {
+  // setting the coditional- if  both are true game runs 
   while (playerHealth > 0 && enemyHealth > 0) {
+
     // ask player if they'd like to fight or run
     var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
 
-    // skip is evaulted first - if true then stops loop if false then loop continues-- eliminates need for fight confirm
+    // skip is evaulted first - if true then stops loop if false then loop continues-- eliminates redundancy
+
     // if player picks "skip" confirm and then stop the loop
+    // this is how you only allow certain inputs to trigger things --- vs random inputs
     if (promptFight === "skip" || promptFight === "SKIP") {
       // confirm player wants to skip
       var confirmSkip = window.confirm("Are you sure you'd like to quit?");
@@ -32,8 +40,9 @@ var fight = function(enemyName) {
       }
     }// end of skip option code
 
-    // start of fight opt code- if skip is false
+    // start of fight option code- if skip is false
 
+    // player attacks Enemy- *(Attack #1)*
     // remove enemy's health by subtracting the amount set in the playerAttack variable
     enemyHealth = enemyHealth - playerAttack;
     console.log(
@@ -48,10 +57,14 @@ var fight = function(enemyName) {
       playerMoney = playerMoney + 20;
 
       // leave while() loop since enemy is dead
-      break;
+      // stops dead robots from continuing to fight--- breaks loop with current data from array
+            break;
+
     } else {
       window.alert(enemyName + ' still has ' + enemyHealth + ' health left.');
     }
+
+    // Attack # 2 -- Enemy attack userBot
 
     // remove players's health by subtracting the amount set in the enemyAttack variable
     playerHealth = playerHealth - enemyAttack;
@@ -68,21 +81,27 @@ var fight = function(enemyName) {
       window.alert(playerName + ' still has ' + playerHealth + ' health left.');
     }
   }// end of while loop 
-};// end of function
+};// end of function definition
 
 
 // THE CALL
-// fight each enemy-robot by looping over them and fighting them one at a time
+
+// For loops objective: fight each enemy-robot by looping over them and fighting them one at a time
+
+// tells iterator to start at 0 --- sets condition for the loop to continue --- set ammount of increase of iterator
 for (var i = 0; i < enemyNames.length; i++) {
+
   // if player is still alive, keep fighting
   if (playerHealth > 0) {
+    // concatinated message where round # is drawn from iterator location in array
+    window.alert("Welcome to Robot Gladiators! Round #" + ( i+ 1) );
    
-    // pick new enemy to fight based on the index of the enemyNames array
+    //new enemy to fight based on the index of the array-- How we solved issue of fighting array as a whole
     var pickedEnemyName = enemyNames[i];
 
     // reset enemyHealth before starting new fight
     enemyHealth = 50;
-
+// tells fight function to run again with new enemy from indices positon in array. 
     fight(pickedEnemyName);
   }
 }
