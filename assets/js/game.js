@@ -170,10 +170,24 @@ var shop = function() {
   var shopOptionPrompt = window.prompt(
     "Would you like to REFIll your health , UPGRADE your attack, or LEAVE the store? Please enter one:'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
   );
-};
+  // Switch statement for shop function -- acts like an if else statement --- telling function how to proceed based on input
+switch (shopOptionPrompt) {
+  // defining the acceptible inputs for refill capability
+  case "REFILL":
+  case "refill":
+    //calling the specific object and method for refilling health -- see playerInfo object for reference
+    playerInfo.refillHealth();
+    // stopping code so that only one option can be selected --- with out break statment both refill and upgrade could be chosen
+    break;
+  case "UPGRADE":
+  case "upgrade":
+    playerInfo.upgradeAttack();
+    break;
+  } // end of switch statement
+};// end of shop function
 
 // Object to incapsulate all the player data
-// Placed at the bottom to be after RandomNumber def
+// Placed at the bottom so that RandomNumber function is defined first before its called. 
 var playerInfo = {
 
   name: window.prompt("What is your robot's name?"),
@@ -188,14 +202,26 @@ var playerInfo = {
   },
   // reset for Refill ability in Shop () -- consolidating in one object
   refillHealth: function() {
+    if (this.money >= 7) {
+      window.alert("Refilling player's health by 20 for 7 dollars.")
     this.health += 20;
     this.money -= 7;
+    }
+    else {
+      window.alert("You don't have the moola for that!");
+    }
   },
   // reset for Upgrade attack abiltity in Shop() - consolidating in one object
   upgradeAttack: function() {
+    if (this.money >= 7) {
+      window.alert("Upgrading player's attack by 6 for 7 dollars.");
     this.attack += 6;
     this.money -+ 7;
   }
+  else {
+    window.alert("You don't have enough money!");
+  }
+}
 };
 
 // Object to encapsulate all enemy data
