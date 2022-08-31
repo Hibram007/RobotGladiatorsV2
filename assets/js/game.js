@@ -55,7 +55,7 @@ var fight = function(enemy) {
       window.alert(enemy.name + ' has died!');
 
       // award player money for winning
-      player.Info.money = player.Info.money + 20;
+      playerInfo.money = playerInfo.money + 20;
 
       // leave while() loop since enemy is dead
       // stops dead robots from continuing to fight--- breaks loop with current data from array
@@ -186,11 +186,25 @@ switch (shopOptionPrompt) {
   } // end of switch statement
 };// end of shop function
 
+// function to set Player name
+var getPlayerName = function() {
+  var name = "";
+
+  // For loop and condition code
+  // checks if name input is blank or null
+  while (name === "" || name === null) {
+    name = prompt("What is your robot's name?");
+  }
+
+  console.log("Your robot's name is" + name);
+  return name;
+};
+
 // Object to incapsulate all the player data
 // Placed at the bottom so that RandomNumber function is defined first before its called. 
 var playerInfo = {
 
-  name: window.prompt("What is your robot's name?"),
+  name: getPlayerName(),
   health: 100,
   attack: 10, 
   money: 10,
