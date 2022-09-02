@@ -10,20 +10,24 @@ var randomNumber = function(min, max) {
 };
 
 // Entire game function
-// argument being passed into function (all data being passed in from global variables)
-var fight = function(enemy) {
 
-  // setting the coditional- if  both are true game runs 
-  while (playerInfo.health > 0 && enemy.health > 0) {
+// fightOrSkip() - recieves a valid response from player to see if the player will continue fighting. 
+var fightOrSkip = function () {
 
     // ask player if they'd like to fight or run
     var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
 
-    // skip is evaulted first - if true then stops loop if false then loop continues-- eliminates redundancy
+    // Protection against null and empty user response to start fight. 
+    // recursive call with conditionals -- if answer is null or empty then  give alert and return to fightOrSkip function- replays
+    if (promptFight === "" || promptFight === null) {
+      window.alert("you need to provide a valid answer! Please try again.");
+      return fightOrSkip();
+    }
 
-    // if player picks "skip" confirm and then stop the loop
+    // telling machine that input from used is = input set in lowercase format. 
+    promptFight = promptFight.toLowerCase();
     // this is how you only allow certain inputs to trigger things --- vs random inputs
-    if (promptFight === "skip" || promptFight === "SKIP") {
+    if (promptFight === "skip") {
       // confirm player wants to skip
       var confirmSkip = window.confirm("Are you sure you'd like to quit?");
 
@@ -32,22 +36,36 @@ var fight = function(enemy) {
         window.alert(playerInfo.name + ' has decided to skip this fight. Goodbye!');
         // subtract money from playerMoney for skipping
         player.Info.money = Math.max(0, player.Info.money - 10);
-        console.log("playerMoney", player.Info.money)
-        break;
+        
+        // return true if player wants to leave
+        return true;
       }
-    }// end of skip option code
+    }
+    return false;
+  };
 
-    // start of fight option code- if skip is false
+  // argument being passed into function (all data being passed in from global variables)
+  var fight = function(enemy) {
 
-    // player attacks Enemy- *(Attack #1)*
-
+    while (playerInfo.health > 0 && enemy.health > 0) {
+  // will deal with fight or skip to initial code -- recursive call 
+  if (fightOrSkip()) {
+   // if true, leave fight by breaking loop
+   break;
+  }
+    
     // remove enemy's health nased on attatck damage
     var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
     enemy.health = Math.max(0, enemy.health - damage);
-
     console.log(
-      playerInfo.name + ' attacked ' + enemy.name + '. ' + enemy.name + ' now has ' + enemy.health + ' health remaining.'
+      playerInfo.name + 
+      ' attacked ' + 
+      enemy.name + 
+      '. ' + enemy.name + 
+      ' now has ' + 
+      enemy.health + 
+      ' health remaining.'
     );
 
     // check enemy's health
@@ -87,13 +105,9 @@ var fight = function(enemy) {
   }// end of while loop 
   // function to generate a random numeric value
    
-};// end of function definition
-
+};
 
 // THE CALL
-
-// For loops objective: fight each enemy-robot by looping over them and fighting them one at a time
-
 // Function to start a new game--
 var startGame = function() {
 
